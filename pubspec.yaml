@@ -45,7 +45,7 @@ dependencies:
   like_button: ^2.0.5
   loading_animation_widget: ^1.2.0+4
   auto_size_text: ^3.0.0
-#  flutter_native_splash: ^2.2.18
+  flutter_native_splash: ^2.2.18
   flutter_launcher_icons: ^0.12.0
   url_launcher: ^6.1.10
   font_awesome_flutter: ^10.4.0
@@ -68,13 +68,14 @@ flutter_icons:
   image_path: "assets/icons/icon-app.png"
   min_sdk_android: 19
 
-#flutter_native_splash:
-##  image: 'assets/icons/splash.png'
-#  color: "#FFFFFF"
+flutter_native_splash:
+  image: 'assets/icons/splash.png'
+  color: "#FFFFFF"
+  android_gravity: fill
 #  background_image: "assets/icons/splash.png"
-#  android: true
-#  ios: true
-#  web: false
+  android: true
+  ios: true
+  web: false
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

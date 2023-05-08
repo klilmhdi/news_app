@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:news_app/screens/layout_screen.dart';
 import 'package:news_app/share/cubit/app_cubit/app_cubit.dart';
 import 'package:news_app/share/cubit/bloc_observer.dart';
@@ -10,8 +11,7 @@ import 'package:news_app/share/themes.dart';
 import 'dart:io';
 
 Future main() async{
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   AppCubit;
@@ -37,8 +37,8 @@ Future main() async{
       ));
     }
   }
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  // FlutterNativeSplash.remove();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.remove();
   runApp(MyApp());
 }
 
