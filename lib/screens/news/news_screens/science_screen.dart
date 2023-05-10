@@ -26,22 +26,25 @@ class ScienceNewsPage extends StatelessWidget {
             );
           } else if (state is GetScienceNewsSuccess) {
             print("Successful loading");
-            return Directionality(
-              textDirection: TextDirection.rtl,
-              child: Container(
-                width: double.infinity,
+            return RefreshIndicator(
+              onRefresh: () async => cubit.getScienceNews(),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
                 child: Container(
-                    margin:
-                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => SizedBox(
-                        height: 15.0,
-                      ),
-                      itemCount: 15,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (context, int index) =>
-                          buildNewsCard(context, cubit.science[index]),
-                    )),
+                  width: double.infinity,
+                  child: Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 15.0,
+                        ),
+                        itemCount: 15,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, int index) =>
+                            buildNewsCard(context, cubit.science[index]),
+                      )),
+                ),
               ),
             );
           } else {

@@ -9,6 +9,7 @@ import 'package:news_app/screens/news/news_screens/sport_screen.dart';
 import 'package:news_app/screens/news/news_screens/technology_screen.dart';
 import 'package:news_app/screens/news/news_screens/world_news_screen.dart';
 import 'package:news_app/screens/setting/setting_screen.dart';
+import 'package:news_app/share/local/cache_helper.dart';
 
 part 'app_state.dart';
 
@@ -47,7 +48,7 @@ class AppCubit extends Cubit<AppState> {
     ScienceNewsPage()
   ];
 
-
+  Map<int, bool> favourite = {};
 
   void changeTabBar(int index) {
     tabBatCurrentIndex = index;
@@ -59,9 +60,14 @@ class AppCubit extends Cubit<AppState> {
     emit(ChangeBottomNavBar());
   }
 
-  bool switchThemes(){
-    isDark = !isDark;
-    emit(ChangeAppTheme());
-    return isDark;
+  void switchThemes({bool? fromShared}) {
+    if (fromShared != null) {
+      isDark = fromShared;
+      emit(ChangeAppTheme());
+    } else {
+      isDark = !isDark;
+      emit(ChangeAppTheme());
+      // CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+    }
   }
 }

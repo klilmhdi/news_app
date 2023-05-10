@@ -26,22 +26,25 @@ class ArabNewsPage extends StatelessWidget {
             );
           } else if (state is GetArabNewsSuccess) {
             print("Successful loading");
-            return Directionality(
-              textDirection: TextDirection.rtl,
-              child: Container(
-                width: double.infinity,
+            return RefreshIndicator(
+              onRefresh: () async => cubit.getArabNews(),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
                 child: Container(
-                    margin:
-                    EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => SizedBox(
-                        height: 15.0,
-                      ),
-                      itemCount: 15,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (context, int index) =>
-                          buildNewsCard(context, cubit.arab[index]),
-                    )),
+                  width: double.infinity,
+                  child: Container(
+                      margin:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 15.0,
+                        ),
+                        itemCount: 15,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, int index) =>
+                            buildNewsCard(context, cubit.arab[index]),
+                      )),
+                ),
               ),
             );
           } else {

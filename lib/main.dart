@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -7,15 +8,18 @@ import 'package:news_app/share/cubit/app_cubit/app_cubit.dart';
 import 'package:news_app/share/cubit/bloc_observer.dart';
 import 'package:news_app/share/cubit/news_cubit/news_cubit.dart';
 import 'package:news_app/share/remote/dio_helper.dart';
-import 'package:news_app/share/themes.dart';
 import 'dart:io';
 
-Future main() async{
+Future main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // enable blocobserver
   Bloc.observer = MyBlocObserver();
+  // enable dio helper in app
   DioHelper.init();
+  // bloc's in app
   AppCubit;
   NewsCubit;
+  // for webivew in flutter
   if (Platform.isAndroid) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
 
@@ -26,7 +30,7 @@ Future main() async{
 
     if (swAvailable && swInterceptAvailable) {
       AndroidServiceWorkerController serviceWorkerController =
-      AndroidServiceWorkerController.instance();
+          AndroidServiceWorkerController.instance();
 
       await serviceWorkerController
           .setServiceWorkerClient(AndroidServiceWorkerClient(
@@ -37,8 +41,10 @@ Future main() async{
       ));
     }
   }
+  // for native splash in flutter
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   FlutterNativeSplash.remove();
+  // run app
   runApp(MyApp());
 }
 
@@ -52,13 +58,28 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'News App',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: ThemeMode.dark,
+            theme: ThemeData(
+                useMaterial3: true,
+                scaffoldBackgroundColor: Color(0xFFF4F8F6),
+                brightness: Brightness.light,
+                appBarTheme: AppBarTheme(
+                    backgroundColor: Color(0xFFF4F8F6),
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                        statusBarBrightness: Brightness.light,
+                        statusBarIconBrightness: Brightness.dark,
+                        statusBarColor: Colors.white))),
+            darkTheme: ThemeData(
+                useMaterial3: true,
+                brightness: Brightness.dark,
+                appBarTheme: AppBarTheme(
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarBrightness: Brightness.dark,
+                  statusBarIconBrightness: Brightness.light,
+                ))),
+            themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             home: LayoutPage(),
           );
         },

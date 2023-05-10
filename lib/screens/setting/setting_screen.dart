@@ -17,10 +17,15 @@ class SettingPage extends StatelessWidget {
             child: Column(
               children: [
                 ListTile(
-                  leading: Icon(
-                      Icons.invert_colors_on_rounded, color: Colors.grey),
+                  leading:
+                      Icon(Icons.invert_colors_on_rounded, color: Colors.grey),
                   title: Text("Change theme"),
-                  // trailing: IconButton(icon: Icon(cubit.isDark ? FontAwesomeIcons.moon: FontAwesomeIcons.sun), onPressed: ()=>cubit.switchThemes(),),
+                  trailing: IconButton(
+                    icon: Icon(cubit.isDark
+                        ? FontAwesomeIcons.moon
+                        : FontAwesomeIcons.sun),
+                    onPressed: () => cubit.switchThemes(),
+                  ),
                 ),
                 ListTile(
                   leading: Icon(Icons.favorite, color: Colors.grey),

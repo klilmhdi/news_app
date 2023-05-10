@@ -28,16 +28,19 @@ class WorldNewsPage extends StatelessWidget {
             );
           } else if (state is GetWorldNewsSuccess) {
             print("Successful loading");
-            return Container(
-                child: ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(
-                height: 15.0,
-              ),
-              itemCount: 15,
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (context, int index) =>
-                  buildNewsCard(context, cubit.world[index]),
-            ));
+            return RefreshIndicator(
+              onRefresh: () async => cubit.getWorldNews(),
+              child: Container(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 15.0,
+                    ),
+                    itemCount: 15,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, int index) =>
+                        buildNewsCard(context, cubit.world[index]),
+              )),
+            );
           } else {
             print("Failed");
             return Center(
@@ -65,7 +68,8 @@ class WorldNewsPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Lottie.asset(Assets.noInternet, height: 110.0, width: 180.0),
+                                Lottie.asset(Assets.noInternet,
+                                    height: 110.0, width: 180.0),
                                 SizedBox(height: 12.0),
                                 Text(
                                   "Your Internet Connection is weak",

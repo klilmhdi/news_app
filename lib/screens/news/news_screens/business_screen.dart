@@ -26,20 +26,23 @@ class BusinessNewsPage extends StatelessWidget {
             );
           } else if (state is GetBusinessNewsSuccess) {
             print("Successful loading");
-            return Container(
-              width: double.infinity,
+            return RefreshIndicator(
+              onRefresh: () async => cubit.getBusinessNews(),
               child: Container(
-                  margin:
-                  EdgeInsets.symmetric(horizontal: 10.0),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 15.0,
-                    ),
-                    itemCount: 15,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, int index) =>
-                        buildNewsCard(context, cubit.business[index]),
-                  )),
+                width: double.infinity,
+                child: Container(
+                    margin:
+                    EdgeInsets.symmetric(horizontal: 10.0),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 15.0,
+                      ),
+                      itemCount: 15,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (context, int index) =>
+                          buildNewsCard(context, cubit.business[index]),
+                    )),
+              ),
             );
           } else {
             print("Failed");

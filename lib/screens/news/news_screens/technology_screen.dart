@@ -26,7 +26,8 @@ class TechnologyNewsPage extends StatelessWidget {
             );
           } else if (state is GetTechnologyNewsSuccess) {
             print("Successful loading");
-            return Center(
+            return RefreshIndicator(
+              onRefresh: () async => cubit.getTechnologyNews(),
               child: Container(
                 width: double.infinity,
                 child: Container(

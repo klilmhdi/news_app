@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:lottie/lottie.dart';
@@ -12,7 +13,6 @@ import 'cubit/app_cubit/app_cubit.dart';
 //Variables
 String formattedString = "";
 DateTime dateTime = DateTime.parse(formattedString);
-
 
 // navigate and finish pervious screen
 navAndFinish(context, Widget) => Navigator.pushAndRemoveUntil(
@@ -40,10 +40,7 @@ Widget buildNewsCard(context, articles) {
         topLeft: Radius.circular(18.0),
         topRight: Radius.circular(18.0),
       ),
-      onTap: () {
-        // articles['url']
-        navTo(context, WebPage(url: articles['url']));
-      },
+      onTap: () => navTo(context, WebPage(url: articles['url'])),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -77,7 +74,6 @@ Widget buildNewsCard(context, articles) {
                       ? Image.network("${articles['urlToImage']}",
                           fit: BoxFit.fill)
                       : Lottie.asset(Assets.emptyViewImage),
-                  // Icon(Icons.image_not_supported, size: 140.0, color: Colors.grey[400])
                 ),
               ),
             ),
@@ -94,7 +90,7 @@ Widget buildNewsCard(context, articles) {
                               "${articles['title']}",
                               maxLines: 3,
                               style: GoogleFonts.roboto(
-                                  fontSize: 16.0, fontWeight: FontWeight.bold),
+                                  fontSize: 14.0, fontWeight: FontWeight.bold),
                             )
                           : Text(
                               "Khaleel Mahdi",
@@ -110,15 +106,24 @@ Widget buildNewsCard(context, articles) {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(
-                            child: AutoSizeText(
-                              "${articles['author']}",
-                              maxLines: 2,
-                              style: GoogleFonts.roboto(
-                                  fontSize: 12.0, fontWeight: FontWeight.bold),
-                            ),
+                            child: articles['author'] != null
+                                ? AutoSizeText(
+                                    "${articles['author']}",
+                                    maxLines: 3,
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                : Text(
+                                    "Khaleel Mahdi",
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.deepPurple),
+                                    textDirection: TextDirection.ltr,
+                                  ),
                           ),
                           AutoSizeText(
-                            // "${articles['publishedAt']}"
                             articles['publishedAt'].toString(),
                             maxLines: 3,
                             style: GoogleFonts.roboto(
@@ -143,29 +148,61 @@ Widget buildNewsCard(context, articles) {
                           decoration: TextDecoration.underline,
                           decorationColor: Colors.blue),
                     )),
-                    Row(
-                      children: [
-                        LikeButton(
-                          size: 25.0,
-                          circleColor: CircleColor(
-                              start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                          bubblesColor: BubblesColor(
-                            dotPrimaryColor: Color(0xff33b5e5),
-                            dotSecondaryColor: Color(0xff0099cc),
-                          ),
-                          likeBuilder: (bool isLiked) => Icon(
-                            Icons.favorite,
-                            color:
-                                isLiked ? Colors.red : Colors.deepPurpleAccent,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15.0),
+                      child: Row(
+                        children: [
+                          LikeButton(
+                            isLiked: false,
+                            onTap: (value) async {
+                              value = value;
+                              if(value){ // here if i removed from favourite
+                                Fluttertoast.showToast(
+                                  msg: "Removed from favourite ❌",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.SNACKBAR,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.deepOrangeAccent,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0,
+                                );
+                              }else{ // here if i add to favourite
+                                Fluttertoast.showToast(
+                                    msg: "Added to favourite ✅",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.SNACKBAR,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.deepPurpleAccent,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
+                              // print("the id is: ${articles['author']}");
+                              return !value;
+                            },
                             size: 25.0,
+                            circleColor: CircleColor(
+                                start: Color(0xff00ddff),
+                                end: Color(0xff0099cc)),
+                            bubblesColor: BubblesColor(
+                              dotPrimaryColor: Color(0xff33b5e5),
+                              dotSecondaryColor: Color(0xff0099cc),
+                            ),
+                            likeBuilder: (bool isLiked) => Icon(
+                              Icons.favorite,
+                              color: isLiked
+                                  ? Colors.red
+                                  : Colors.deepPurpleAccent,
+                              size: 23.0,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 10.0),
-                        Icon(
-                          Icons.share,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                      ],
+                          SizedBox(width: 20.0),
+                          Icon(
+                            Icons.share,
+                            color: Colors.deepPurpleAccent,
+                            size: 23.0,
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -250,7 +287,7 @@ class WebPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Breaking News')),
-      body:  InAppWebView(
+      body: InAppWebView(
         initialUrlRequest: URLRequest(url: Uri.parse(url)),
       ),
     );
@@ -258,72 +295,76 @@ class WebPage extends StatelessWidget {
 }
 
 Widget buildDialog(function) => Center(
-  child: Dialog(
-    child: Container(
-      decoration: BoxDecoration(
-          color: Colors.grey,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(20.0)),
-      width: 200.0,
-      height: 250.0,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  height: 130.0,
-                  color: Colors.indigo,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      child: Dialog(
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.grey,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(20.0)),
+          width: 200.0,
+          height: 250.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Icon(Icons.wifi_off_rounded, size: 50.0),
-                    SizedBox(height: 12.0),
-                    Text(
-                      "Your Internet Connection is weak",
-                      style: GoogleFonts.roboto(
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      height: 130.0,
+                      color: Colors.indigo,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(Icons.wifi_off_rounded, size: 50.0),
+                        SizedBox(height: 12.0),
+                        Text(
+                          "Your Internet Connection is weak",
+                          style: GoogleFonts.roboto(
+                              fontSize: 17.0, fontWeight: FontWeight.bold),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.all(14.0),
-                child: Text(
-                  "Please, check your internet connection and try again", style: GoogleFonts.roboto(fontSize: 15.0, fontWeight: FontWeight.bold),),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              // onTap: () => cubit.getBusinessNews(),
-              onTap: function,
-              child: Container(
-                width: 60.0,
-                decoration: BoxDecoration(
-                  color: Colors.indigo,
-                  borderRadius: BorderRadius.circular(12.0),
                 ),
-                padding: EdgeInsets.all(8.0),
-                child: Center(child: Text("Retry")),
               ),
-            ),
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(14.0),
+                    child: Text(
+                      "Please, check your internet connection and try again",
+                      style: GoogleFonts.roboto(
+                          fontSize: 15.0, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  // onTap: () => cubit.getBusinessNews(),
+                  onTap: function,
+                  child: Container(
+                    width: 60.0,
+                    decoration: BoxDecoration(
+                      color: Colors.indigo,
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(child: Text("Retry")),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              )
+            ],
           ),
-          SizedBox(height: 10.0,)
-        ],
+        ),
       ),
-    ),
-  ),
-);
+    );

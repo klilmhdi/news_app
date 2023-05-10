@@ -16,7 +16,12 @@ class NewsHomePage extends StatelessWidget {
           return Column(
             children: [
               Expanded(flex: 1, child: buildTabBar(cubit)),
-              Expanded(flex: 6, child: Container(width: double.infinity, padding: EdgeInsets.all(15.0),child: cubit.tabBarView[cubit.tabBatCurrentIndex]))
+              Expanded(
+                  flex: 10,
+                  child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(15.0),
+                      child: cubit.tabBarView[cubit.tabBatCurrentIndex]))
             ],
           );
         },
