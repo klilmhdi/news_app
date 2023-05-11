@@ -163,4 +163,12 @@ class NewsCubit extends Cubit<NewsState> {
     });
     return technology;
   }
+
+  Map<int, bool> favourite = {};
+
+  // void addToFavorites(var article) {
+  //   favourite = Map.of(article);
+  //   newFavorites.add(article);
+  //   emit(AddToFavorites(article));
+  // }
 }

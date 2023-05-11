@@ -74,3 +74,9 @@ class GetBusinessNewsError extends NewsState {
 
   GetBusinessNewsError(this.error);
 }
+
+class AddToFavorites extends NewsState {
+  final String article;
+
+  AddToFavorites(this.article);
+}

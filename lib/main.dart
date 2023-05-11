@@ -56,8 +56,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()),
         BlocProvider<NewsCubit>(create: (BuildContext context) => NewsCubit()),
       ],
-      child: BlocBuilder<AppCubit, AppState>(
+      child: BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {},
         builder: (context, state) {
+          AppCubit cubit = AppCubit.get(context);
+          print("The state now is: ${cubit.isDark == true ? ThemeMode.dark : ThemeMode.light}");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'News App',
@@ -79,7 +82,7 @@ class MyApp extends StatelessWidget {
                   statusBarBrightness: Brightness.dark,
                   statusBarIconBrightness: Brightness.light,
                 ))),
-            themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            themeMode: cubit.isDark == true ? ThemeMode.dark : ThemeMode.light,
             home: LayoutPage(),
           );
         },

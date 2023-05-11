@@ -48,8 +48,6 @@ class AppCubit extends Cubit<AppState> {
     ScienceNewsPage()
   ];
 
-  Map<int, bool> favourite = {};
-
   void changeTabBar(int index) {
     tabBatCurrentIndex = index;
     emit(ChangeTabBarPages());
@@ -60,14 +58,24 @@ class AppCubit extends Cubit<AppState> {
     emit(ChangeBottomNavBar());
   }
 
-  void switchThemes({bool? fromShared}) {
-    if (fromShared != null) {
-      isDark = fromShared;
-      emit(ChangeAppTheme());
-    } else {
-      isDark = !isDark;
-      emit(ChangeAppTheme());
-      // CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+  // void switchThemes({bool? fromShared}) {
+  //   if (fromShared != null) {
+  //     isDark = fromShared;
+  //     emit(ChangeAppTheme());
+  //   } else {
+  //     isDark = !isDark;
+  //     emit(ChangeAppTheme());
+  //     // CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+  //   }
+  // }
+  ThemeMode switchTheme() {
+    isDark = !isDark;
+    if(isDark == true){
+      emit(ChangeAppThemeToDark());
+      return ThemeMode.dark;
+    }else{
+    emit(ChangeAppThemeToLight());
+    return ThemeMode.light;
     }
   }
 }

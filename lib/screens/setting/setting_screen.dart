@@ -24,7 +24,7 @@ class SettingPage extends StatelessWidget {
                     icon: Icon(cubit.isDark
                         ? FontAwesomeIcons.moon
                         : FontAwesomeIcons.sun),
-                    onPressed: () => cubit.switchThemes(),
+                    onPressed: () => cubit.switchTheme(),
                   ),
                 ),
                 ListTile(

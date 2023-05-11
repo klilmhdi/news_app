@@ -109,7 +109,8 @@ Widget buildNewsCard(context, articles) {
                             child: articles['author'] != null
                                 ? AutoSizeText(
                                     "${articles['author']}",
-                                    maxLines: 3,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.roboto(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
@@ -123,11 +124,22 @@ Widget buildNewsCard(context, articles) {
                                     textDirection: TextDirection.ltr,
                                   ),
                           ),
-                          AutoSizeText(
-                            articles['publishedAt'].toString(),
-                            maxLines: 3,
-                            style: GoogleFonts.roboto(
-                                fontSize: 12.0, fontWeight: FontWeight.bold),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              AutoSizeText(
+                                articles['publishedAt'].toString().substring(0, 10),
+                                maxLines: 3,
+                                style: GoogleFonts.roboto(
+                                    fontSize: 12.0, fontWeight: FontWeight.bold),
+                              ),
+                              AutoSizeText(
+                                articles['publishedAt'].toString().substring(11, 16),
+                                maxLines: 3,
+                                style: GoogleFonts.roboto(
+                                    fontSize: 12.0, fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                         ],
                       ),
