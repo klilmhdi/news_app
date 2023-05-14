@@ -25,12 +25,6 @@ class SettingPage extends StatelessWidget {
                   trailing: BlocBuilder<ThemeCubit, ThemeState>(
                     bloc: context.read<ThemeCubit>(),
                     builder: (context, state) {
-                      // return IconButton(
-                      //   icon: Icon(
-                      //       ? FontAwesomeIcons.moon
-                      //       : FontAwesomeIcons.sun),
-                      //   onPressed: () => ,
-                      // );
                       return Switch.adaptive(
                           value: state.isDark,
                           onChanged: (value)=> context.read<ThemeCubit>().switchTheme());

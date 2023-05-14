@@ -47,7 +47,7 @@ class WorldNewsPage extends StatelessWidget {
               child: Dialog(
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.grey[400],
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(20.0)),
                   width: 200.0,
@@ -56,44 +56,34 @@ class WorldNewsPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
                             Container(
-                              height: 130.0,
+                              height: 200.0,
                               color: Colors.indigo,
                             ),
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Lottie.asset(Assets.noInternet,
                                     height: 110.0, width: 180.0),
-                                SizedBox(height: 12.0),
+                                SizedBox(height: 22.0),
                                 Text(
-                                  "Your Internet Connection is weak",
+                                  "Your Didn't have Internet Connection",
                                   style: GoogleFonts.roboto(
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold, color: Colors.white),
                                 )
                               ],
                             )
                           ],
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(14.0),
-                            child: Text(
-                              "Please, check your internet connection and try again",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 15.0, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       Expanded(
                         flex: 1,
@@ -106,7 +96,7 @@ class WorldNewsPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             padding: EdgeInsets.all(8.0),
-                            child: Center(child: Text("Retry")),
+                            child: Center(child: Text("Retry", style: TextStyle(color: Colors.white),)),
                           ),
                         ),
                       ),

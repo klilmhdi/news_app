@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
+import 'package:news_app/generated/assets.dart';
 import 'package:news_app/share/components.dart';
 import 'package:news_app/share/cubit/news_cubit/news_cubit.dart';
 
@@ -52,7 +54,7 @@ class HealthNewsPage extends StatelessWidget {
               child: Dialog(
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.grey[400],
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(20.0)),
                   width: 200.0,
@@ -61,40 +63,34 @@ class HealthNewsPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
                             Container(
-                              height: 130.0,
+                              height: 200.0,
                               color: Colors.indigo,
                             ),
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.wifi_off_rounded, size: 50.0),
-                                SizedBox(height: 12.0),
+                                Lottie.asset(Assets.noInternet,
+                                    height: 110.0, width: 180.0),
+                                SizedBox(height: 22.0),
                                 Text(
-                                  "Your Internet Connection is weak",
+                                  "Your Didn't have Internet Connection",
                                   style: GoogleFonts.roboto(
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold, color: Colors.white),
                                 )
                               ],
                             )
                           ],
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(14.0),
-                            child: Text(
-                              "Please, check your internet connection and try again", style: GoogleFonts.roboto(fontSize: 15.0, fontWeight: FontWeight.bold),),
-                          ),
-                        ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       Expanded(
                         flex: 1,
@@ -107,11 +103,13 @@ class HealthNewsPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             padding: EdgeInsets.all(8.0),
-                            child: Center(child: Text("Retry")),
+                            child: Center(child: Text("Retry", style: TextStyle(color: Colors.white),)),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10.0,)
+                      SizedBox(
+                        height: 10.0,
+                      )
                     ],
                   ),
                 ),
