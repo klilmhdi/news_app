@@ -10,7 +10,3 @@ class AppTabBar extends AppState {}
 class ChangeBottomNavBar extends AppState {}
 
 class ChangeTabBarPages extends AppState {}
-
-class ChangeAppThemeToDark extends AppState {}
-
-class ChangeAppThemeToLight extends AppState {}

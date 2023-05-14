@@ -9,7 +9,6 @@ import 'package:news_app/screens/news/news_screens/sport_screen.dart';
 import 'package:news_app/screens/news/news_screens/technology_screen.dart';
 import 'package:news_app/screens/news/news_screens/world_news_screen.dart';
 import 'package:news_app/screens/setting/setting_screen.dart';
-import 'package:news_app/share/local/cache_helper.dart';
 
 part 'app_state.dart';
 
@@ -20,7 +19,6 @@ class AppCubit extends Cubit<AppState> {
 
   int navBarCurrentIndex = 0;
   int tabBatCurrentIndex = 0;
-  bool isDark = false;
   List<Widget> screens = [NewsHomePage(), SettingPage()];
   List<String> screenTitle = ["Last News", "Settings"];
   List<IconData> screenIcon = [Icons.newspaper, Icons.settings];
@@ -68,14 +66,4 @@ class AppCubit extends Cubit<AppState> {
   //     // CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
   //   }
   // }
-  ThemeMode switchTheme() {
-    isDark = !isDark;
-    if(isDark == true){
-      emit(ChangeAppThemeToDark());
-      return ThemeMode.dark;
-    }else{
-    emit(ChangeAppThemeToLight());
-    return ThemeMode.light;
-    }
-  }
 }

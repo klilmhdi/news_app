@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:news_app/screens/setting/favorite_news_screen.dart';
 import 'package:news_app/share/components.dart';
 import 'package:news_app/share/cubit/app_cubit/app_cubit.dart';
+import 'package:news_app/share/cubit/theme_cubit/theme_cubit.dart';
+import 'package:news_app/share/cubit/theme_cubit/theme_cubit.dart';
 
 class SettingPage extends StatelessWidget {
   @override
@@ -20,11 +22,19 @@ class SettingPage extends StatelessWidget {
                   leading:
                       Icon(Icons.invert_colors_on_rounded, color: Colors.grey),
                   title: Text("Change theme"),
-                  trailing: IconButton(
-                    icon: Icon(cubit.isDark
-                        ? FontAwesomeIcons.moon
-                        : FontAwesomeIcons.sun),
-                    onPressed: () => cubit.switchTheme(),
+                  trailing: BlocBuilder<ThemeCubit, ThemeState>(
+                    bloc: context.read<ThemeCubit>(),
+                    builder: (context, state) {
+                      // return IconButton(
+                      //   icon: Icon(
+                      //       ? FontAwesomeIcons.moon
+                      //       : FontAwesomeIcons.sun),
+                      //   onPressed: () => ,
+                      // );
+                      return Switch.adaptive(
+                          value: state.isDark,
+                          onChanged: (value)=> context.read<ThemeCubit>().switchTheme());
+                    },
                   ),
                 ),
                 ListTile(

@@ -7,6 +7,8 @@ import 'package:news_app/screens/layout_screen.dart';
 import 'package:news_app/share/cubit/app_cubit/app_cubit.dart';
 import 'package:news_app/share/cubit/bloc_observer.dart';
 import 'package:news_app/share/cubit/news_cubit/news_cubit.dart';
+import 'package:news_app/share/cubit/theme_cubit/theme_cubit.dart';
+import 'package:news_app/share/cubit/theme_cubit/theme_cubit.dart';
 import 'package:news_app/share/remote/dio_helper.dart';
 import 'dart:io';
 
@@ -19,6 +21,7 @@ Future main() async {
   // bloc's in app
   AppCubit;
   NewsCubit;
+  ThemeCubit;
   // for webivew in flutter
   if (Platform.isAndroid) {
     await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
@@ -55,12 +58,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AppCubit>(create: (BuildContext context) => AppCubit()),
         BlocProvider<NewsCubit>(create: (BuildContext context) => NewsCubit()),
+        BlocProvider<ThemeCubit>(create: (BuildContext context) => ThemeCubit()),
       ],
-      child: BlocConsumer<AppCubit, AppState>(
-        listener: (context, state) {},
+      child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
-          print("The state now is: ${cubit.isDark == true ? ThemeMode.dark : ThemeMode.light}");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'News App',
@@ -82,7 +83,7 @@ class MyApp extends StatelessWidget {
                   statusBarBrightness: Brightness.dark,
                   statusBarIconBrightness: Brightness.light,
                 ))),
-            themeMode: cubit.isDark == true ? ThemeMode.dark : ThemeMode.light,
+            themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
             home: LayoutPage(),
           );
         },
