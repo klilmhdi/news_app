@@ -67,16 +67,17 @@ download the zip file
 
 ## Preview the screens
 
-| Light Screens | Dark Screens |
+| Dark Theme Screens | Light Theme Screens |
 | :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
-| :------------ | :--------------- |
+| <img src="screenshots/screens/1686766224160.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224369.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224171.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224339.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224190.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224369.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224207.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224383.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224215.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224394.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224224.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224402.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224232.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224414.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224268.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224424.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224279.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224433.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224288.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224441.jpg" width=150px height=350px> |
+| <img src="screenshots/screens/1686766224299.jpg" width=150px height=350px> | <img src="screenshots/screens/1686766224449.jpg" width=150px height=350px> |
+
