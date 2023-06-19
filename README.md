@@ -1,6 +1,7 @@
 # News App
 
 ## Getting Started
+<img src="screenshots/mockups/mockup.png">
 This app about news from world
 
 ## What is the app contain:
